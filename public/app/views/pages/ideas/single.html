@@ -1,0 +1,42 @@
+<a ng-href="/boards/{{ idea.boardId }}" class="btn btn-default">Back To Board</a>
+<div class="page-header">
+	<div class="home-text"><h3>Create Idea</h3></div>
+</div>
+
+<form name="ideaForm" class="form-horizontal" novalidate ng-submit="idea.canSubmit(ideaForm.$valid) && idea.saveIdea()">
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Idea</label>
+		<div class="col-sm-6">
+			<input type="text" name="content" class="form-control home-text" ng-model="idea.ideaData.text" required ng-minlength="1" ng-maxlength="15">
+			<p ng-show="ideaForm.content.$dirty && ideaForm.content.$error.required" class="help-block">Idea needs content.</p>
+			<p ng-show="idea.submitted && ideaForm.content.$error.required" class="help-block">Idea needs content</p>
+			<p ng-show="ideaForm.content.$error.minlength" class="help-block">Idea is too short</p>
+			<p ng-show="ideaForm.content.$error.maxlength" class="help-block home-text">Ideas can only be up to 15 characters. Use the 'Idea Explanation' to enter longer content.</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Idea Explanation</label>
+		<div class="col-sm-6">
+			<input type="text" name="explanation" class="form-control home-text" ng-model="idea.ideaData.explanation">
+		</div>
+	</div>
+	
+	<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-6">
+		<button type="submit" name="submitBtn" class="btn btn-success btn-lg btn-block">Create Idea</button>
+	</div>
+	</div>
+
+</form>
+
+<div class="row show-hide-message" ng-show="idea.message">
+	<div class="col-sm-6 col-sm-offset-2">
+		
+		<div class="alert alert-warning">
+			{{ idea.message }}
+		</div>
+
+	</div>
+</div>

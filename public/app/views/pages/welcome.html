@@ -1,0 +1,58 @@
+<div class="welcome-header">
+	<img src="../../../assets/img/home header.jpg" width="100%" height="300px">
+</div>
+<div class="container">
+
+	<div class="row welcome-page-flex">
+
+        <div class="col-md-2"></div>
+
+    	<div class="col-md-4 welcome-page-icon" ng-click="board.createBoard()" ng-if="!board.join">
+    		<img src="../../../assets/img/new board icon.jpg" class="center-block" width="200px" height="200px">
+            <a href="#">Create a New Board</a>
+    	</div>
+
+        <div class="col-md-4" ng-if="board.create">
+            <div class="home-text">
+                Awesome, let those ideas flow!
+                Your code is <b>{{ board.boardCode }}</b>
+            </div>
+            <div class="action-buttons">
+                <a ng-href="/boards/{{ board.boardCode }}" class="btn btn-success">Join Board</a>
+                <a ng-click="board.reset()" class="btn btn-warning">cancel</a>
+            </div>
+        </div>
+
+        <div class="col-md-4" ng-if="board.join">
+            <form class="form-horizontal welcome-page" ng-submit="board.getBoard()">
+                
+                <div class="form-group home-text">
+                    <label class="control-label">Board Code</label>
+                    <div>
+                        <input type="text" class="form-control home-text" ng-model="board.boardData">
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" ng-if="!board.successfulCode">
+                    Invalid Code
+                </div>
+                
+                <div class="form-group">
+                    <div class="home-text">
+                        <button type="submit" class="btn btn-success">Join Board</button>
+                        <a ng-click="board.reset()" class="btn btn-warning">cancel</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-md-4 welcome-page-icon" ng-click="board.joinBoard()" ng-if="!board.create">
+            <img src="../../../assets/img/join board icon.jpg" class="center-block" width="200px" height="200px">
+            <a href="#">Join a Board</a>
+        </div>
+
+        <div class="col-md-2"></div>
+
+    </div>
+</div>

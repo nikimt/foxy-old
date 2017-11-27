@@ -1,0 +1,84 @@
+<div class="page-header">
+	<div class="home-text">
+		<h3>Board {{idea.boardId}}</h3>
+		<a ng-href="/ideas/create/{{ idea.boardId }}" class="btn btn-warning">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New Idea
+		</a>
+		<span ng-switch="idea.playing">
+			<span ng-switch-when='true'><a href="#" ng-click="idea.toggleAnimation()" class="btn btn-primary">Stop</a></span>
+			<span ng-switch-when='false'><a href="#" ng-click="idea.toggleAnimation()" class="btn btn-primary">Start</a></span>
+		</span>
+		<span ng-switch="idea.boardSaved" ng-if="idea.isModerator">
+			<span ng-switch-when='true'><span>Board Saved</span></span>
+			<span ng-switch-when='false'><a ng-click="idea.saveBoard()" class="btn btn-primary">Save board</a></span>
+		</span>
+	</h3>
+
+</div>
+
+<div class="alert alert-danger" ng-if="idea.saveBoardError">
+	<div class="img-wrap">
+		<span class="close" ng-click="idea.hideSaveErrorClick()">&times;</span>
+	</div>
+	{{ idea.saveBoardError }}
+</div>
+
+<h6><i>Click on an idea bubble for more options</i></h6>
+<h6 ng-if="idea.isModerator"><i>You are the moderator for this board</i></h6>
+
+<div ng-if="idea.showPanel" class="container" id="explanation">
+	<div ng-if="!idea.hideOptions">
+		<div class="img-wrap">
+			<span class="close" ng-click="idea.hideOptionsClick()">&times;</span>
+		</div>
+		<h5> Options for <i>{{idea.ideaTitle}}</i>:</h5>
+		<a href="#" ng-click="idea.upvote()" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Upvote</a>
+		<a href="#" ng-if="idea.showFlag" ng-click="idea.flag()" class="btn btn-primary"> &#9873;{{idea.flagState}}</a>
+		<a href="#" ng-if="idea.hasExplanation" ng-click="idea.showExplanationClick()" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span> Explanation</a>
+		<a href="#" ng-click="idea.showNotesClick()" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Notes</a>
+		<a href="#" ng-if="idea.canDelete" ng-click="idea.delete()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+	</div>
+
+	<div ng-if="!idea.hideExplanation">
+		<div class="img-wrap">
+			<span class="close" ng-click="idea.hideExplanationClick()">&times;</span>
+		</div>
+		<h5> Explanation for <i>{{idea.ideaTitle}}</i>:</h5>
+		{{idea.ideas[idea.ideaToShowIndex].explanation}}
+	</div>
+
+	<div ng-if="!idea.hideNotes">
+		<div class="img-wrap">
+			<span class="close" ng-click="idea.hideNotesClick()">&times;</span>
+		</div>
+		<h5>Notes</h5>
+		<div ng-repeat="note in idea.noteToShow">
+			 &bull;
+			 {{ note.content }}
+		</div>
+
+		<form class="form-horizontal" ng-submit="idea.saveNote()">	
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Create Note</label>
+				<div class="col-sm-6">
+						<input type="text" class="form-control home-text" ng-model="idea.noteData.text" ng-value=''>					
+				</div>
+				<div class="col-sm-2">
+					<button type="submit" class="btn btn-primary">Create Note</button>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+
+
+<div class="jumbotron text-center" ng-show="idea.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading Ideas...</p>
+</div>
+
+<div id="canvas" ng-click="idea.showOptions($event)">
+</div>
+

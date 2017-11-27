@@ -1,0 +1,68 @@
+<div class="navbar-section">
+	<!--Navbar, includes a collapsing navbar-->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+		    <div class="navbar-header">
+		    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		        	<span class="icon-bar"></span>
+		        	<span class="icon-bar"></span>
+		        	<span class="icon-bar"></span>                        
+		      	</button>
+			<div class="navbar-header">
+				<a href="/" class="navbar-brand"><span class="glyphicon glyphicon-globe"></span>  Ideate</a>
+			</div>	
+		    </div>
+		    <div class="collapse navbar-collapse" id="myNavbar">
+		    	<ul class="nav navbar-nav navbar-right">
+		      	</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+
+
+<div class="page-header">
+	<div class="home-text">
+		<h3>Board</h3>
+		<a ng-href="/ideas/create/{{ idea.boardId }}" class="btn btn-warning">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New Idea
+		</a>
+	</h3>
+
+</div>
+
+<div class="jumbotron text-center" ng-show="idea.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading Ideas...</p>
+</div>
+
+<table class="table" ng-show="idea.ideas">
+	<thead>
+		<tr>
+			<th>Flagged</th>
+			<th>Text</th>
+			<th>Upvotes</th>
+			<th>Explanation</th>
+			<th>Notes</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="ideaBubble in idea.ideas">
+			<td>{{ ideaBubble.meta.flag }}</td>
+			<td>{{ ideaBubble.content }}</td>
+			<td>{{ ideaBubble.meta.upvotes.upvote_count }}</td>
+			<td><input ng-controller="ideaController" type="text" name="explanation" value={{ideaBubble.explanation}}></td>
+			<td><input type="text" name="notes" value="Notes"></td>
+			<td>
+				<a href="#" ng-click="idea.upvote(ideaBubble._id)" class="btn btn-primary">Upvote</a>
+			</td>
+			<td>
+				<a ng-if="ideaBubble.meta.flag" href="#" ng-click="idea.unflag(ideaBubble._id)" class="btn btn-primary">Unflag</a>
+				<a ng-if="!ideaBubble.meta.flag" href="#" ng-click="idea.flag(ideaBubble._id)" class="btn btn-primary">Flag</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

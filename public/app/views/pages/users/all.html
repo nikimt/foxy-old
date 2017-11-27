@@ -1,0 +1,24 @@
+<div class="padding"></div>
+
+<div class="jumbotron text-center" ng-show="idea.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading Boards...</p>
+</div>
+<h2>Saved Boards</h2>
+<table class="table" ng-show="user.boards">
+	<thead>
+		<tr>
+			<th>Board Code</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="board in user.boards">
+			<td>{{ board }}</td>
+			<td>
+				<a href="#" ng-href="/boards/{{board}}" class="btn btn-primary">See Board</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
