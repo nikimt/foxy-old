@@ -1,7 +1,7 @@
-# Ideate
-### Made with <3 by the Rinnegatos
+# Foxy
+### Made with <3 by chewi
 
-[ideate-app.herokuapp.com](https://ideate-app.herokuapp.com)
+[foxy.herokuapp.com](https://foxy.herokuapp.com)
 
 ### To install & run:
 1. npm install
